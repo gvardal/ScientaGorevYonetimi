@@ -24,7 +24,8 @@ namespace ScientaScheduler.Business.Controllers
             {
                 if (userInfo.IsSuccessful)
                 {
-                    return Ok(userInfo);
+                    var token = await userService.CreateToken(userInfo);
+                    return Ok(token);
                 }
                 else
                 {

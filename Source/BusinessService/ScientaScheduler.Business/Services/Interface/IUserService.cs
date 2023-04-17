@@ -4,6 +4,7 @@ namespace ScientaScheduler.Business.Services.Interface
 {
     public interface IUserService
     {
-        Task<UserLoginResponseDTO> UserLogin(UserLoginRequestDTO userLoginRequest);
+        Task<string> CreateToken(UserLoginResponseDTO userLoginRequest);
+        Task<UserLoginResponseDTO> UserLogin(UserLoginRequestDTO userLoginInfo);
     }
 }

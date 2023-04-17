@@ -50,7 +50,7 @@ namespace ScientaScheduler.Business.Services.Infrastructure
             return userInfoDTO;
         }
 
-        public string CreateToken()
+        public Task<string> CreateToken(UserLoginResponseDTO userLoginRequest)
         {
             SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(configuration["TokenSettings:SecurityKey"]!));
             SigningCredentials signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -60,17 +60,20 @@ namespace ScientaScheduler.Business.Services.Infrastructure
                     notBefore: DateTime.Now,
                     expires: DateTime.Now.AddMinutes(Convert.ToInt32(configuration["TokenSettings:AccessTokenExpiration"])),
                     signingCredentials: signingCredentials,
-                    claims: SetClaims()
+                    claims: SetClaims(userLoginRequest)
                 ) ;
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-            return handler.WriteToken(token);
+            return Task.FromResult(handler.WriteToken(token));
         }
 
-        private IEnumerable<Claim> SetClaims()
+        private IEnumerable<Claim> SetClaims(UserLoginResponseDTO userLoginRequest)
         {
             var claims = new List<Claim>()
             {
-                new Claim("userFullName", "Giray VARDAL"),
+                //new Claim("CalisanID",userLoginRequest.CalisanID,ClaimValueTypes.Integer64),
+                new Claim("userFullName",userLoginRequest.UserName,ClaimValueTypes.String),
+                new Claim("GirisAnahtari",userLoginRequest.GirisAnahtari,ClaimValueTypes.String),
+
             };
             return claims;
         }
