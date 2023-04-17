@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Soluiton Items", "Soluiton Items", "{4A780B69-8086-4D54-9555-6A84E9885631}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{47A0A1AD-472A-44EC-8D4A-9230E7ACB28E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessService", "BusinessService", "{B7C49BF6-AEE5-4B36-BCDC-CB807C918938}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.Business", "Source\BusinessService\ScientaScheduler.Business\ScientaScheduler.Business.csproj", "{9EAB2045-D853-46C7-B5A1-E4566A966E6D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebService", "WebService", "{4EB1A9AC-6D3A-4895-A076-8E70996BB862}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.Blazor", "Source\WebService\ScientaScheduler.Blazor\ScientaScheduler.Blazor.csproj", "{6290334E-1E66-4CDE-9DB6-CB8297905070}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{87009804-B094-4FC1-8504-BFD9C25A0795}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.Library", "Source\Library\ScientaScheduler.Library\ScientaScheduler.Library.csproj", "{4FA4BC57-95AA-4DDE-80B4-FA458D516AE1}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7BE3D7C4-9A7B-4E38-94BB-71D27E59C97F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EAB2045-D853-46C7-B5A1-E4566A966E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EAB2045-D853-46C7-B5A1-E4566A966E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EAB2045-D853-46C7-B5A1-E4566A966E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EAB2045-D853-46C7-B5A1-E4566A966E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6290334E-1E66-4CDE-9DB6-CB8297905070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6290334E-1E66-4CDE-9DB6-CB8297905070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6290334E-1E66-4CDE-9DB6-CB8297905070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6290334E-1E66-4CDE-9DB6-CB8297905070}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FA4BC57-95AA-4DDE-80B4-FA458D516AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FA4BC57-95AA-4DDE-80B4-FA458D516AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FA4BC57-95AA-4DDE-80B4-FA458D516AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FA4BC57-95AA-4DDE-80B4-FA458D516AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BE3D7C4-9A7B-4E38-94BB-71D27E59C97F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BE3D7C4-9A7B-4E38-94BB-71D27E59C97F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BE3D7C4-9A7B-4E38-94BB-71D27E59C97F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BE3D7C4-9A7B-4E38-94BB-71D27E59C97F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B7C49BF6-AEE5-4B36-BCDC-CB807C918938} = {47A0A1AD-472A-44EC-8D4A-9230E7ACB28E}
+		{9EAB2045-D853-46C7-B5A1-E4566A966E6D} = {B7C49BF6-AEE5-4B36-BCDC-CB807C918938}
+		{4EB1A9AC-6D3A-4895-A076-8E70996BB862} = {47A0A1AD-472A-44EC-8D4A-9230E7ACB28E}
+		{6290334E-1E66-4CDE-9DB6-CB8297905070} = {4EB1A9AC-6D3A-4895-A076-8E70996BB862}
+		{87009804-B094-4FC1-8504-BFD9C25A0795} = {47A0A1AD-472A-44EC-8D4A-9230E7ACB28E}
+		{4FA4BC57-95AA-4DDE-80B4-FA458D516AE1} = {87009804-B094-4FC1-8504-BFD9C25A0795}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7FDBCD4C-E3BC-4F84-B4B3-77645C7804DE}
+	EndGlobalSection
+EndGlobal

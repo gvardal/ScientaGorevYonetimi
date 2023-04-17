@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  scientascheduler.business:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5300:80"
+    networks:
+      - scheduler
+
+  scientascheduler.blazor:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5301:80"
+    depends_on:
+      - scientascheduler.business
+    networks:
+      - scheduler
+
+networks:
+  scheduler:
+    driver: bridge
+    external: true
+  
+

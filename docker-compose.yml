@@ -1,0 +1,18 @@
+version: '3.4'
+
+
+services:
+  scientascheduler.business:
+    container_name: SchedulerBusiness
+    image: ${DOCKER_REGISTRY-}scientaschedulerbusiness
+    build:
+      context: .
+      dockerfile: Source/BusinessService/ScientaScheduler.Business/Dockerfile
+
+  scientascheduler.blazor:
+    container_name: SchedulerBlazor
+    image: ${DOCKER_REGISTRY-}scientaschedulerblazor
+    build:
+      context: .
+      dockerfile: Source/WebService/ScientaScheduler.Blazor/Dockerfile
+
