@@ -11,17 +11,23 @@ namespace ScientaScheduler.Business.Services.Infrastructure
 {
     public class UserService : IUserService
     {
-        private HttpClient httpClient;
-        private readonly IConfiguration configuration;
+        private HttpClient httpClient = new();
+        readonly IConfiguration configuration;
         private string UserAuth { get; set; }
+
         public UserService(IConfiguration configuration)
         {
             this.configuration = configuration;
-            httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(configuration["ScientaRestSettings:BaseUrl"]!);
+            if (configuration is not null)
+            {
+                var url = configuration.GetSection("ScientaRestSettings").GetSection("BaseUrl").Value;
+                if (url != null)
+                {
+                    httpClient.BaseAddress = new Uri(url);
+                }                
+            }            
             httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));            
         }
 
         public async Task<UserLoginResponseDTO> UserLogin(UserLoginRequestDTO userLoginRequest)
@@ -58,7 +64,7 @@ namespace ScientaScheduler.Business.Services.Infrastructure
                     issuer: configuration["TokenSettings:Issuer"],
                     audience: configuration["TokenSettings:Audience"],
                     notBefore: DateTime.Now,
-                    expires: DateTime.Now.AddMinutes(Convert.ToInt32(configuration["TokenSettings:AccessTokenExpiration"])),
+                    expires: DateTime.Now.AddMinutes(Convert.ToInt32(configuration["TokenSettings:AccessTokenExpirationMin"])),
                     signingCredentials: signingCredentials,
                     claims: SetClaims(userLoginRequest)
                 ) ;
@@ -70,7 +76,7 @@ namespace ScientaScheduler.Business.Services.Infrastructure
         {
             var claims = new List<Claim>()
             {
-                //new Claim("CalisanID",userLoginRequest.CalisanID,ClaimValueTypes.Integer64),
+                new Claim("CalisanID",userLoginRequest.CalisanID.ToString(),ClaimValueTypes.Integer64),
                 new Claim("userFullName",userLoginRequest.UserName,ClaimValueTypes.String),
                 new Claim("GirisAnahtari",userLoginRequest.GirisAnahtari,ClaimValueTypes.String),
 
