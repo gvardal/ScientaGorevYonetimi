@@ -1,5 +1,7 @@
 using Blazored.LocalStorage;
 using ScientaScheduler.Blazor.Data;
+using ScientaScheduler.Blazor.Services.Infrastructure;
+using ScientaScheduler.Blazor.Services.Interface;
 using Syncfusion.Blazor;
 
 namespace ScientaScheduler.Blazor
@@ -17,6 +19,7 @@ namespace ScientaScheduler.Blazor
             builder.Services.AddSyncfusionBlazor();
 
             builder.Services.AddSingleton<WeatherForecastService>();
+            builder.Services.AddSingleton<IBusinessService,BusinessService>();
 
             var app = builder.Build();
 

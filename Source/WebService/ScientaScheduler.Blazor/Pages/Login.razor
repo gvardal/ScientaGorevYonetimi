@@ -1,5 +1,7 @@
 @page "/login"
+
 @layout EmptyLayout
+@inject IBusinessService businessService
 
 <section class="vh-100">
     <div class="container-fluid  align-items-center h-100">
@@ -10,12 +12,16 @@
                     <CardStacked>
                         <CardHeader Title="Kullanıcı Girişi" />
                         <CardContent>
-                            <EditForm Model="userLoginRequest">
+                            <EditForm Model="userLoginRequest" OnValidSubmit="UserLogin">
                                 <div class="d-flex row align-content-center align-items-center justify-content-center">
                                     <div class="col-xs-12 col-sm-8 col-md-8">
-                                        <SfTextBox Placeholder="Kullanıcı Adı" CssClass="mb-2"></SfTextBox>
-                                        <SfTextBox Placeholder="Şifre" CssClass="mb-2"></SfTextBox>
+                                        <SfTextBox Placeholder="Kullanıcı Adı" CssClass="mb-2" @bind-Value="userLoginRequest.UserName"></SfTextBox>
+                                        <SfTextBox Placeholder="Şifre" CssClass="mb-2" @bind-Value="userLoginRequest.Password"></SfTextBox>
                                         <SfButton CssClass="e-primary" class="btn btn-block mb-5" style="width:100%">Giriş</SfButton>
+                                        @if (!loginResponse.IsSuccess)
+                                        {
+                                            <p>@loginResponse.ErrorMessage</p>
+                                        }
                                     </div>
                                 </div>
                             </EditForm>
@@ -49,9 +55,15 @@
 
     private UserLoginRequestDTO userLoginRequest = new UserLoginRequestDTO();
 
-    private void UserLogin()
-    {
+    private UserLoginResponse loginResponse { get; set; } = new();
 
+    private async Task UserLogin()
+    {
+        var loginResult = await businessService.UserLogin(userLoginRequest);
+        loginResponse.IsSuccess = loginResult.IsSuccess;
+        loginResponse.Token = loginResult.Token;
+        loginResponse.ErrorMessage = loginResult.ErrorMessage;
+        StateHasChanged();
     }
 
 

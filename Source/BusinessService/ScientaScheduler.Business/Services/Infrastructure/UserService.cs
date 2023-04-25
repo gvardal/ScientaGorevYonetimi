@@ -28,7 +28,7 @@ namespace ScientaScheduler.Business.Services.Infrastructure
             }            
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));            
-        }
+        }   
 
         public async Task<UserLoginResponseDTO> UserLogin(UserLoginRequestDTO userLoginRequest)
         {
