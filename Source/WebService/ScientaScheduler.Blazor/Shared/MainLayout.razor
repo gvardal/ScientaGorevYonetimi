@@ -1,9 +1,12 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager navigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject HttpClient client
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
 <PageTitle>ScientaScheduler.Blazor</PageTitle>
 
-<div class="page">
+@*<div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
@@ -17,10 +20,28 @@
             @Body
         </article>
     </main>
-</div>
+</div>*@
 
+<AuthorizeView>
+    <Authorized>
+        <div class="container-fluid p-0">
+            <div class="col-12">
+                <SfAppBar ColorMode="AppBarColor.Primary">
+                    <SfButton aria-label="menu" CssClass="e-inherit menu" IconCss="e-icons e-menu"></SfButton>
+                    <span class="regular">Merhaba @loginStr</span>
+                    <AppBarSpacer></AppBarSpacer>
+                    <SfButton CssClass="e-inherit login" IconCss="oi oi-account-logout" OnClick="UserLogOut"></SfButton>
+                </SfAppBar>
+            </div>
+            <div class="content px-4">
+                @Body
+            </div>
+        </div>
+    </Authorized>
+</AuthorizeView>
 
 @code {
+
     private string loginStr { get; set; } = string.Empty;
 
     [CascadingParameter]
@@ -28,7 +49,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-
         var authState = await AuthSate;
         if (authState.User.Identity!.IsAuthenticated)
         {
@@ -38,6 +58,13 @@
         {
             navigationManager.NavigateTo("login");
         }
+    }
 
+    private async Task UserLogOut()
+    {
+        await localStorage.RemoveItemAsync("token");
+        (AuthenticationStateProvider as AuthStateProvider)!.NotifyUserLogout();
+        client.DefaultRequestHeaders.Authorization = null;
+        navigationManager.NavigateTo("login");
     }
 }

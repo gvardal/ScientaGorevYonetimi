@@ -5,7 +5,7 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject NavigationManager navigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject HttpClient client
+
 
 <section class="vh-100">
     <div class="container-fluid  align-items-center h-100">
@@ -70,8 +70,7 @@
         if (loginResponse.IsSuccess)
         {
             await localStorage.SetItemAsync("token", loginResponse.Token);
-            await (AuthenticationStateProvider as AuthStateProvider)!.NotifyUserLogin();
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", loginResult.Token);
+            await (AuthenticationStateProvider as AuthStateProvider)!.NotifyUserLogin();            
             navigationManager.NavigateTo("/");
         }
         StateHasChanged();
