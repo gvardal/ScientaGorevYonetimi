@@ -22,33 +22,95 @@
     </main>
 </div>*@
 
+
+
 <AuthorizeView>
     <Authorized>
-        <div class="container-fluid p-0">
-            <div class="col-12">
+        @*        <div class="main-content container-fluid p-0" id="sidebar-wrapper">
+        <div>
+        <SfAppBar ColorMode="AppBarColor.Primary">
+        <SfButton aria-label="menu" CssClass="e-inherit menu" IconCss="e-icons e-menu" OnClick="Toggle"></SfButton>
+        <span class="regular">Merhaba @loginStr</span>
+        <AppBarSpacer></AppBarSpacer>
+        <SfButton CssClass="e-inherit login" IconCss="oi oi-account-logout" OnClick="UserLogOut"></SfButton>
+        </SfAppBar>
+        </div>
+
+        <div class="maincontent">
+        <div class="content px-4">@Body</div>
+        </div>
+
+        </div>*@
+
+
+        <div id="sidebar-wrapper">
+            <div>
                 <SfAppBar ColorMode="AppBarColor.Primary">
-                    <SfButton aria-label="menu" CssClass="e-inherit menu" IconCss="e-icons e-menu"></SfButton>
+                    <SfButton aria-label="menu" CssClass="e-inherit menu" IconCss="e-icons e-menu" OnClick="Toggle"></SfButton>
                     <span class="regular">Merhaba @loginStr</span>
                     <AppBarSpacer></AppBarSpacer>
                     <SfButton CssClass="e-inherit login" IconCss="oi oi-account-logout" OnClick="UserLogOut"></SfButton>
                 </SfAppBar>
             </div>
-            <div class="content px-4">
-                @Body
+            <div class="maincontent">
+                <div class="content px-4">@Body</div>
             </div>
         </div>
+
+        <SfSidebar Width="260px" Position="@Position" @bind-IsOpen="@SidebarToggle" HtmlAttributes="@HtmlAttribute">
+            <ChildContent>
+                <div style="text-align: center;" class="text-content">Sidebar</div>
+            </ChildContent>
+        </SfSidebar>
+
     </Authorized>
 </AuthorizeView>
 
+<style>
+    #sidebar-wrapper .sf-icon-profile:before {
+        float: right;
+        content: '\e717';
+        font-size: 25px;
+    }
+
+    #sidebar-wrapper.e-sidebar-context {
+        overflow-x: inherit;
+    }
+
+    #sidebar-wrapper .default-sidebar {
+        z-index: 20 !important;
+    }
+
+    #sidebar-wrapper .e-content-animation {
+        height: 600px;
+        width: auto;
+    }
+</style>
+
 @code {
-
-    private string loginStr { get; set; } = string.Empty;
-
     [CascadingParameter]
     public Task<AuthenticationState> AuthSate { get; set; }
 
+    public SidebarPosition Position { get; set; } = SidebarPosition.Left;
+    Dictionary<string, object> HtmlAttribute = new Dictionary<string, object>()
+    {
+        { "class", "default-sidebar" }
+    };
+
+    private string loginStr { get; set; } = string.Empty;
+
+
+
+
+    public bool SidebarToggle { get; set; } = false;
+    public void Toggle()
+    {
+        SidebarToggle = !SidebarToggle;
+    }
+
     protected override async Task OnInitializedAsync()
     {
+        SidebarToggle = false;
         var authState = await AuthSate;
         if (authState.User.Identity!.IsAuthenticated)
         {
