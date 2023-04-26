@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager navigationManager
 
 <PageTitle>ScientaScheduler.Blazor</PageTitle>
 
@@ -9,7 +10,7 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <a href="" target="_blank">@loginStr</a>
         </div>
 
         <article class="content px-4">
@@ -17,3 +18,26 @@
         </article>
     </main>
 </div>
+
+
+@code {
+    private string loginStr { get; set; } = string.Empty;
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthSate { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var authState = await AuthSate;
+        if (authState.User.Identity!.IsAuthenticated)
+        {
+            loginStr = authState.User.Claims.Where(x => x.Type == "userFullName").First().Value;
+        }
+        else
+        {
+            navigationManager.NavigateTo("login");
+        }
+
+    }
+}

@@ -1,5 +1,7 @@
 using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 using ScientaScheduler.Blazor.Data;
+using ScientaScheduler.Blazor.Services;
 using ScientaScheduler.Blazor.Services.Infrastructure;
 using ScientaScheduler.Blazor.Services.Interface;
 using Syncfusion.Blazor;
@@ -18,6 +20,9 @@ namespace ScientaScheduler.Blazor
             builder.Services.AddAuthenticationCore();
             builder.Services.AddSyncfusionBlazor();
 
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<AuthenticationStateProvider,AuthStateProvider>();
+
             builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddSingleton<IBusinessService,BusinessService>();
 
@@ -31,7 +36,8 @@ namespace ScientaScheduler.Blazor
             }
 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseRouting();
 
             app.MapBlazorHub();

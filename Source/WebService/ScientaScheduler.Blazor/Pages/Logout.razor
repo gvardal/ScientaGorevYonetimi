@@ -1,0 +1,18 @@
+﻿@page "/logout"
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject NavigationManager navigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject HttpClient client
+
+@code {
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await localStorage.RemoveItemAsync("token");
+        (AuthenticationStateProvider as AuthStateProvider)!.NotifyUserLogout();
+        client.DefaultRequestHeaders.Authorization = null;
+        navigationManager.NavigateTo("login");
+    }
+}
