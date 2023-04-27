@@ -4,15 +4,18 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world! Counter is @counter</h1>
 
-Welcome to your new app.
+    <h1>Hello, world! Counter is @counter</h1>
+    Welcome to your new app.
+    <SurveyPrompt Title="How is Blazor working for you?" />
 
-<SurveyPrompt Title="How is Blazor working for you?" />
 
 
 @code {
     private int counter = 0;
+
+    private string HeaderText = "Header";
+    private string MainContent = "Application Content";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -21,6 +24,6 @@ Welcome to your new app.
             counter = await localStorage.GetItemAsync<int>("counter");
             StateHasChanged();
         }
-        
+
     }
 }

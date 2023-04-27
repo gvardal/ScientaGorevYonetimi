@@ -6,120 +6,53 @@
 
 <PageTitle>ScientaScheduler.Blazor</PageTitle>
 
-@*<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="" target="_blank">@loginStr</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>*@
-
-
-
 <AuthorizeView>
     <Authorized>
-        @*        <div class="main-content container-fluid p-0" id="sidebar-wrapper">
-        <div>
-        <SfAppBar ColorMode="AppBarColor.Primary">
-        <SfButton aria-label="menu" CssClass="e-inherit menu" IconCss="e-icons e-menu" OnClick="Toggle"></SfButton>
-        <span class="regular">Merhaba @loginStr</span>
-        <AppBarSpacer></AppBarSpacer>
-        <SfButton CssClass="e-inherit login" IconCss="oi oi-account-logout" OnClick="UserLogOut"></SfButton>
-        </SfAppBar>
-        </div>
 
-        <div class="maincontent">
-        <div class="content px-4">@Body</div>
-        </div>
-
-        </div>*@
-
-
-        <div id="sidebar-wrapper">
-            <div>
+        <div class="page">
+            <SideBar SidebarToggle="SidebarToggle" LoggedUser="@loginStr" />
+            <main>
                 <SfAppBar ColorMode="AppBarColor.Primary">
-                    <SfButton aria-label="menu" CssClass="e-inherit menu" IconCss="e-icons e-menu" OnClick="Toggle"></SfButton>
-                    <span class="regular">Merhaba @loginStr</span>
+                    <SfButton CssClass="e-inherit" IconCss="e-icons e-menu" OnClick="@ToggleMenu"></SfButton>
                     <AppBarSpacer></AppBarSpacer>
-                    <SfButton CssClass="e-inherit login" IconCss="oi oi-account-logout" OnClick="UserLogOut"></SfButton>
+                    <SfButton CssClass="e-inherit" IconCss="oi oi-account-logout" OnClick="@UserLogOut"></SfButton>
                 </SfAppBar>
-            </div>
-            <div class="maincontent">
-                <div class="content px-4">@Body</div>
-            </div>
+                <article class="content px-2">
+                    @Body
+                </article>
+            </main>
         </div>
-
-        <SfSidebar Width="260px" Position="@Position" @bind-IsOpen="@SidebarToggle" HtmlAttributes="@HtmlAttribute">
-            <ChildContent>
-                <div style="text-align: center;" class="text-content">Sidebar</div>
-            </ChildContent>
-        </SfSidebar>
 
     </Authorized>
 </AuthorizeView>
 
-<style>
-    #sidebar-wrapper .sf-icon-profile:before {
-        float: right;
-        content: '\e717';
-        font-size: 25px;
-    }
-
-    #sidebar-wrapper.e-sidebar-context {
-        overflow-x: inherit;
-    }
-
-    #sidebar-wrapper .default-sidebar {
-        z-index: 20 !important;
-    }
-
-    #sidebar-wrapper .e-content-animation {
-        height: 600px;
-        width: auto;
-    }
-</style>
-
 @code {
+    public string loginStr { get; set; } = string.Empty;
+
     [CascadingParameter]
     public Task<AuthenticationState> AuthSate { get; set; }
 
-    public SidebarPosition Position { get; set; } = SidebarPosition.Left;
-    Dictionary<string, object> HtmlAttribute = new Dictionary<string, object>()
-    {
-        { "class", "default-sidebar" }
-    };
-
-    private string loginStr { get; set; } = string.Empty;
-
-
-
-
-    public bool SidebarToggle { get; set; } = false;
-    public void Toggle()
-    {
-        SidebarToggle = !SidebarToggle;
-    }
-
     protected override async Task OnInitializedAsync()
     {
-        SidebarToggle = false;
         var authState = await AuthSate;
         if (authState.User.Identity!.IsAuthenticated)
         {
             loginStr = authState.User.Claims.Where(x => x.Type == "userFullName").First().Value;
+            StateHasChanged();
         }
         else
         {
             navigationManager.NavigateTo("login");
         }
+    }
+
+
+
+    private bool SidebarToggle = false;
+    private void ToggleMenu()
+    {
+        SidebarToggle = !SidebarToggle;
+        StateHasChanged();
     }
 
     private async Task UserLogOut()

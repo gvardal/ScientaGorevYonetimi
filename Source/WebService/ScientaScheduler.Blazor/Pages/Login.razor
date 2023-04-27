@@ -21,7 +21,7 @@
                                     <div class="col-xs-12 col-sm-8 col-md-8">
                                         <SfTextBox Placeholder="Kullanıcı Adı" CssClass="mb-2" @bind-Value="userLoginRequest.UserName"></SfTextBox>
                                         <SfTextBox Placeholder="Şifre" Type="InputType.Password" CssClass="mb-2" @bind-Value="userLoginRequest.Password"></SfTextBox>
-                                        <SfButton CssClass="e-primary" class="btn btn-block mb-5" style="width:100%">Giriş</SfButton>
+                                        <SfProgressButton CssClass="e-primary" class="btn btn-block mb-5" style="width:100%" Content="Giriş"/>
                                         @if (!loginResponse.IsSuccess)
                                         {
                                             <p>@loginResponse.ErrorMessage</p>

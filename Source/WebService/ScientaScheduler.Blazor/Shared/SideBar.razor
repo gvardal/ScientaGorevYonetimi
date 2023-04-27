@@ -1,0 +1,103 @@
+﻿@using Syncfusion.Blazor.Lists
+@using Syncfusion.Blazor.Buttons
+
+
+<SfSidebar Width="220px" @bind-IsOpen="SidebarToggle" Animate="true" Type="SidebarType.Push">
+    <ChildContent>
+        <div style="text-align: center;" class="text-content userinfo">
+            <span class="e-avatar e-avatar-circle">GV</span>
+            <p/>
+            <div class="text" style="width: 100%;font-size: 20px;text-align: center;">@LoggedUser</div>
+        </div>
+        <hr />
+        <div class="main-menu">
+            <SfTreeView TValue="MailItem">
+                <TreeViewFieldsSettings TValue="MailItem" Id="Id" DataSource="@MyFolder" Text="FolderName"
+                                        NavigateUrl="Url" ParentID="ParentId" HasChildren="HasSubFolders" Expanded="Expanded" />
+                <TreeViewEvents TValue="MailItem" NodeClicked="NodeClickedHandler"></TreeViewEvents>
+            </SfTreeView>
+        </div>
+    </ChildContent>
+</SfSidebar>
+
+
+@code 
+{
+    [Parameter]
+    public bool SidebarToggle { get; set; }
+
+    [Parameter]
+    public string LoggedUser { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Target { get; set; } = string.Empty;
+
+    public class MailItem
+    {
+        public string Id { get; set; }
+        public string ParentId { get; set; }
+        public string FolderName { get; set; }
+        public bool Expanded { get; set; }
+        public bool HasSubFolders { get; set; }
+        public string IconCss { get; set; }
+        public string Url { get; set; }
+    }
+
+    public void NodeClickedHandler(NodeClickEventArgs args)
+    {
+        if (args is not null)
+        {
+            if (!args.NodeData.HasChildren)
+            {
+                SidebarToggle = false;
+                StateHasChanged();
+            }
+        }        
+    }
+
+    List<MailItem> MyFolder = new List<MailItem>();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        MyFolder.Add(new MailItem
+            {
+                Id = "1",
+                FolderName = "Inbox",
+                HasSubFolders = false,
+                Url="/"
+            });
+        MyFolder.Add(new MailItem
+            {
+                Id = "2",
+                FolderName = "Projects",
+                Expanded = false,
+                HasSubFolders = true,
+                IconCss = "e-icons e-menu",
+                Url = "/counter"
+            });
+        MyFolder.Add(new MailItem
+            {
+                Id = "3",
+                ParentId = "2",
+                FolderName = "Project List",
+                Url = "/fetchdata"
+            });
+        MyFolder.Add(new MailItem
+            {
+                Id = "4",
+                ParentId = "2",
+                FolderName = "Project Gantt",
+                Url = "/"
+            });
+        MyFolder.Add(new MailItem
+            {
+                Id = "5",
+                ParentId = "2",
+                FolderName = "Kanban",
+                Url="/"
+            });
+
+
+    }
+
+}
