@@ -2,6 +2,7 @@
 using ScientaScheduler.Blazor.Services.Interface;
 using ScientaScheduler.Library.DTO;
 using ScientaScheduler.Library.Responses;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -40,6 +41,24 @@ namespace ScientaScheduler.Blazor.Services.Infrastructure
                 userLogin.ErrorMessage = contentString;
             }
             return userLogin;
+        }
+
+        public async Task<ScientaResponse<AktifGorevResponse>> AktifProjeListesi()
+        {
+            ScientaResponse<AktifGorevResponse> scientaResponse = new();
+            string userInfo = JsonConvert.SerializeObject(new ScieantaRestDTO { CalisanID="6"});
+            StringContent stringContent = new StringContent(userInfo, Encoding.UTF8, "application/json");
+            using HttpResponseMessage response = await httpClient.PostAsync("api/Projects/AktifProjeListesi", stringContent);
+            if(response.IsSuccessStatusCode) 
+            {
+                var contentString = await response.Content.ReadAsStringAsync();
+                if (!string.IsNullOrEmpty(contentString))
+                {
+                    scientaResponse = JsonConvert.DeserializeObject<ScientaResponse<AktifGorevResponse>>(contentString);
+                }
+            }
+                       
+            return scientaResponse;
         }
     }
 }

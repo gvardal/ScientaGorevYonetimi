@@ -1,0 +1,38 @@
+﻿@inject IBusinessService businessService
+
+<AuthorizeView>
+    <Authorized>
+        @if (aktifGorevListesi.IsSuccess)
+        {
+            <SfGrid DataSource="@aktifGorevListesi.Data" AllowPaging="true">
+                <GridPageSettings PageSize="5"></GridPageSettings>
+                <GridColumns>
+                    <GridColumn HeaderText="Order ID" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+                    <GridColumn HeaderText="Customer Name" Width="150"></GridColumn>
+                    <GridColumn HeaderText=" Order Date" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right" Width="130"></GridColumn>
+                    <GridColumn HeaderText="Freight" Format="C2" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+                </GridColumns>
+            </SfGrid>
+        }
+        else
+        {
+            
+        }
+
+    </Authorized>
+</AuthorizeView>
+
+
+
+
+
+
+@code {
+    private ScientaResponse<AktifGorevResponse> aktifGorevListesi { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        aktifGorevListesi = await businessService.AktifProjeListesi();
+    }
+
+}

@@ -24,11 +24,11 @@ namespace ScientaScheduler.Business.Controllers
             var result = await scientaRestService.ProjectList(restDTO);
             if (result.IsSuccess)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
             else
             {
-                return BadRequest($"{result.ErrorCode} : {result.ErrorMessage}");
+                return BadRequest(result);
             }
         }
 
