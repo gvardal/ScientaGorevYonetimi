@@ -13,7 +13,7 @@ namespace ScientaScheduler.Business.Services.Infrastructure
     {
         private HttpClient httpClient = new();
         readonly IConfiguration configuration;
-        private string UserAuth { get; set; }
+        private string UserAuth { get; set; } = string.Empty;
 
         public UserService(IConfiguration configuration)
         {

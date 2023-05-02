@@ -17,6 +17,7 @@ namespace ScientaScheduler.Business
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<IUserService,UserService>();
+            builder.Services.AddSingleton<IScientaRestService, ScientaRestService>();
 
             var tokenSettings = builder.Configuration.GetSection("TokenSettings");
             builder.Services.AddAuthentication(option =>

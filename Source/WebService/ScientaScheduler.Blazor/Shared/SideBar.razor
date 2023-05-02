@@ -5,8 +5,11 @@
 <SfSidebar Width="220px" @bind-IsOpen="SidebarToggle" Animate="true" Type="SidebarType.Push">
     <ChildContent>
         <div style="text-align: center;" class="text-content userinfo">
-            <span class="e-avatar e-avatar-circle">GV</span>
-            <p/>
+            @if (!string.IsNullOrEmpty(LoggedUser))
+            {
+                <span class="e-avatar e-avatar-circle">@LoggedUser.Substring(0,2)</span>
+            }
+            
             <div class="text" style="width: 100%;font-size: 20px;text-align: center;">@LoggedUser</div>
         </div>
         <hr />
