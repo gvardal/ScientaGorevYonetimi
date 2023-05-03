@@ -1,38 +1,82 @@
 ﻿@inject IBusinessService businessService
 
-<AuthorizeView>
-    <Authorized>
-        @if (aktifGorevListesi.IsSuccess)
-        {
-            <SfGrid DataSource="@aktifGorevListesi.Data" AllowPaging="true">
-                <GridPageSettings PageSize="5"></GridPageSettings>
-                <GridColumns>
-                    <GridColumn HeaderText="Order ID" TextAlign="TextAlign.Right" Width="120"></GridColumn>
-                    <GridColumn HeaderText="Customer Name" Width="150"></GridColumn>
-                    <GridColumn HeaderText=" Order Date" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right" Width="130"></GridColumn>
-                    <GridColumn HeaderText="Freight" Format="C2" TextAlign="TextAlign.Right" Width="120"></GridColumn>
-                </GridColumns>
-            </SfGrid>
-        }
-        else
-        {
-            
-        }
 
-    </Authorized>
-</AuthorizeView>
+@if (aktifGorevListesi.IsSuccess)
+{
+    <SfGrid DataSource="@aktifGorevListesi.Data!.Where(x=> x.Sorumlu==6)" AllowPaging="true">
+        <GridPageSettings PageSize="5"></GridPageSettings>
+        <GridColumns>
+            <GridColumn Field=@nameof(AktifGorevResponse.PYProjeKoduID) Width="100" HeaderText="Proje ID"></GridColumn>
+            <GridColumn HeaderText="Olay Türü" TextAlign="TextAlign.Center" Width="150">
+                <Template>
+                    @{
+                        var proje = (context as AktifGorevResponse);
+                        if (proje is not null)
+                        {
+                            if (@proje.OlayTuru == 1) // Görev
+                            {
+                                <span class="e-badge e-badge-warning" style="width:150px">@olayTur.OlayTur[proje.OlayTuru]</span>
+                            }
+                            if (@proje.OlayTuru == 6) // Görev
+                            {
+                                <span class="e-badge e-badge-primary" style="width:150px">@olayTur.OlayTur[proje.OlayTuru]</span>
+                            }
+                            <span class="e-badge e-badge-secondary" style="width:150px">@olayTur.OlayTur[proje.OlayTuru]</span>
+                        }
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn HeaderText="Proje Durumu" TextAlign="TextAlign.Center" Width="150">
+                <Template>
+                    @{
+                        var proje = (context as AktifGorevResponse);
+                        if (proje is not null)
+                        {
+                            if (@proje.Durumu == 0) //Onayda
+                            {
+                                <span class="e-badge e-badge-primary" style="width:150px">@projeDurum.Durum[proje.Durumu]</span>
+                            }
+                            if (@proje.Durumu == 4) // Başladı
+                            {
+                                <span class="e-badge e-badge-warning" style="width:150px">@projeDurum.Durum[proje.Durumu]</span>
+                            }
+                            if (@proje.Durumu == 8) // Tamamlandı
+                            {
+                                <span class="e-badge e-badge-success" style="width:150px">@projeDurum.Durum[proje.Durumu]</span>
+                            }
+                            if (@proje.Durumu == 9) // İptal Edildi
+                            {
+                                <span class="e-badge e-badge-danger" style="width:150px">@projeDurum.Durum[proje.Durumu]</span>
+                            }
+                            <span class="e-badge e-badge-secondary" style="width:150px">@projeDurum.Durum[proje.Durumu]</span>
+                        }
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field=@nameof(AktifGorevResponse.PlanlananBaslamaTarihi) HeaderText="Başlama Tarihi" Format="d" Width="150" TextAlign="TextAlign.Center"></GridColumn>
+            <GridColumn Field=@nameof(AktifGorevResponse.PlanlananBitisTarihi) HeaderText="Bitiş Tarihi" Format="d" TextAlign="TextAlign.Center"></GridColumn>
+
+        </GridColumns>
+    </SfGrid>
+}
+else
+{
+
+}
 
 
 
 
-
-
-@code {
+@code
+{
     private ScientaResponse<AktifGorevResponse> aktifGorevListesi { get; set; } = new();
+    private readonly ProjeDurum projeDurum = new ProjeDurum();
+    private readonly OlayTuru olayTur = new OlayTuru();
 
     protected override async Task OnInitializedAsync()
     {
         aktifGorevListesi = await businessService.AktifProjeListesi();
     }
-
 }
+
+
