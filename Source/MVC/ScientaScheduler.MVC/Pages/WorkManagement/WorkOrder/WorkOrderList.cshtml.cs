@@ -1,5 +1,4 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ScientaScheduler.MVC.Data;
@@ -24,7 +23,7 @@ namespace ScientaScheduler.MVC.Pages.WorkManagement.WorkOrder
         public async Task OnGet()
         {
             var orders = await scientaDb.UYIsEmri.Take(100).ToListAsync();
-            orderDto = mapper.Map<List<UYIsEmri>,List<UYIsEmriDTO>>(orders);
+            orderDto = mapper.Map<List<UYIsEmri>, List<UYIsEmriDTO>>(orders);
         }
     }
 }

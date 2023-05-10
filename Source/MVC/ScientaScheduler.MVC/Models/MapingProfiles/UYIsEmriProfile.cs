@@ -9,7 +9,7 @@ namespace ScientaScheduler.MVC.Models.MapingProfiles
         public UYIsEmriProfile()
         {
             CreateMap<UYIsEmri, UYIsEmriDTO>()
-                .ForMember(d=> d.IsEmriKodu, s=> s.MapFrom(src => src.IsEmriKodu!.ToString()));
+                .ForMember(d => d.IsEmriKodu, s => s.MapFrom(src => src.IsEmriKodu!.ToString()));
         }
     }
 }
