@@ -1,0 +1,13 @@
+﻿@page
+@model ScientaScheduler.MVC.Pages.WorkManagement.WorkOrder.WorkOrderListModel
+@{
+}
+
+<div class="container-fluid py-2">
+    <ejs-grid id="Grid" dataSource="@Model.orderDto" allowPaging="true">
+        <e-grid-columns>
+            <e-grid-column field="IsEmriID" headerText="İş Emri ID" textAlign="Left" width="120"></e-grid-column>
+            <e-grid-column field="IsEmriKodu" headerText="İş Emri Kodu" textAlign="Center" width="120"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>

@@ -8,8 +8,7 @@ namespace ScientaScheduler.MVC.Models.MapingProfiles
     {
         public BlogProfile()
         {
-            CreateMap<BlogPost, AddBlogPost>();
-            CreateMap<AddBlogPost, BlogPost>();
+            CreateMap<BlogPost, AddBlogPost>().ReverseMap();
         }
     }
 }

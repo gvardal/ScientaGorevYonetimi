@@ -25,26 +25,15 @@ namespace ScientaScheduler.MVC.Pages.Admin.Blogs
         {
         }
 
-        public void OnPost()
+        public IActionResult OnPost()
         {
 
             BlogPost post = mapper.Map<AddBlogPost,BlogPost>(AddBlogPostRequest);
 
-
-            //var blogPost = new BlogPost() 
-            //{
-            //    Heading = AddBlogPostRequest.Heading,
-            //    PageTitle = AddBlogPostRequest.PageTitle,
-            //    Content = AddBlogPostRequest.Content,
-            //    ShortDescription = AddBlogPostRequest.ShortDescription,
-            //    FeaturedImageUrl = AddBlogPostRequest.FeaturedImageUrl,
-            //    UrlHandle = AddBlogPostRequest.UrlHandle,
-            //    PublishedDate = AddBlogPostRequest.PublishedDate,
-            //    Visible = AddBlogPostRequest.Visible,
-            //};
-
             bloggieDbContext.BlogPosts.Add(post);
             bloggieDbContext.SaveChanges();
+
+            return RedirectToPage("/Admin/Blogs/List");
 
         }
     }

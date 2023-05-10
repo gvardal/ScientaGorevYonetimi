@@ -13,6 +13,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5193",
+      "launchUrl": "workmanagement/workorder/workorderlist",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

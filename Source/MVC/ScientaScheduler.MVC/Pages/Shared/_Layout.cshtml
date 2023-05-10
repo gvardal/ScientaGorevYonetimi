@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ScientaScheduler.MVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/21.1.35/fluent.css" />
+    <script src="https://cdn.syncfusion.com/ej2/21.1.35/dist/ej2.min.js"></script>
 </head>
 <body>
     <header>
@@ -39,6 +41,16 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                               id="navbarDropDownForAdmin">İş Emri Yönetimi</a>
+                            <ul class="dropdown-menu" aria-labeledby="navbarDropDownForAdmin">
+                                <li>
+                                    <a class="dropdown-item" href="/workmanagement/workorder/workorderlist">List Of Work Order</a>
+                                </li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -59,7 +71,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <ejs-scripts></ejs-scripts>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
