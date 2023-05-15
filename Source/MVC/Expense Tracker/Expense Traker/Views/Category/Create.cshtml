@@ -1,0 +1,42 @@
+﻿@model Expense_Traker.Models.Category
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div><div class="form-group"/>
+            <div class="mb-3">
+                <div class="e-btn-group custom-rbt-group">
+                    <input type="radio" id="radioleft" name="Type" value="Expence" checked="@(Model.Type=="Expence")" />
+                    <label class="e-btn" for="radioleft">Expence</label>
+                    <input type="radio" id="radiomiddle" name="Type" value="Income" checked="@(Model.Type=="Income")" />
+                    <label class="e-btn" for="radiomiddle">Income</label>
+                </div>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <ejs-textbox id="title" name="Title" placeholder="Title" value="@Model.Title" floatlabelType="Always"></ejs-textbox>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <ejs-textbox id="icon" name="Icon" placeholder="Icon" value="@Model.Icon" floatlabelType="Always"></ejs-textbox>
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

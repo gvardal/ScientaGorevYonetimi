@@ -4,12 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>ecdb0714-5f7d-4400-9b7c-8d7d98c55ebb</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -19,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ScfModels\" />
+    <ProjectReference Include="..\..\Library\ScientaScheduler.MVC.Library\ScientaScheduler.MVC.Library.csproj" />
   </ItemGroup>
 
 </Project>
