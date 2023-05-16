@@ -21,15 +21,20 @@ namespace ScientaScheduler.MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<UYIsEmri> isEmriList = new();
             List<UYIsEmriDto> isEmriDtoList = new();
 
-            isEmriList = await dbContext.UYIsEmri
-                .Where(x=> x.IsEmriDurumId != 7 && x.IsEmriDurumId != 8)
-                //.Take(50).OrderBy(o => o.BaslangicTarihi)
-                .ToListAsync();
-
-            isEmriDtoList = mapper.Map<List<UYIsEmri>, List<UYIsEmriDto>>(isEmriList);
+            isEmriDtoList = await (from isemri in dbContext.UYIsEmri
+                          join durum in dbContext.P_UYIsEmriDurumu on isemri.IsEmriDurumId equals durum.IsEmriDurumID
+                          where (isemri.IsEmriDurumId !=  7 && isemri.IsEmriDurumId != 8) 
+                          select new UYIsEmriDto
+                          {
+                              IsEmriID = (long)isemri.IsEmriId!,
+                              IsEmriKodu = isemri.IsEmriKodu!,
+                              IsEmriDurum = durum.Durum.Replace("Açık-",""),
+                              UretimMiktari = isemri.UretimMiktari,
+                              BaslangicTarihi = isemri.BaslangicTarihi,
+                              BitisTarihi = isemri.BitisTarihi
+                          }).OrderBy(o=> o.BaslangicTarihi).ToListAsync();
 
             ViewBag.IsEmri = isEmriDtoList;
 
