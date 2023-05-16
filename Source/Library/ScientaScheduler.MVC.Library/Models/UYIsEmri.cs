@@ -2,6 +2,7 @@
 
 namespace ScientaScheduler.MVC.Library.Models
 {
+    
     public class UYIsEmri
     {
         [Key]

@@ -14,12 +14,20 @@ namespace ScientaScheduler.MVC.Library
         {
             modelBuilder.Entity<UYIsEmri>(mb =>
             {
+                mb.ToTable("UYIsEmri", "UretimYonetimi");
                 mb.HasKey(e => e.IsEmriId);
-            }).HasDefaultSchema("UretimYonetimi");
+            });
+
+            modelBuilder.Entity<P_UYIsEmriDurumu>(mb =>
+            {
+                mb.ToTable("P_UYIsEmriDurumu", "SistemAyarlari");
+                mb.HasKey(e => e.IsEmriDurumID);
+            });
 
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<UYIsEmri> UYIsEmri { get; set; }
+        public DbSet<P_UYIsEmriDurumu> P_UYIsEmriDurumu { get; set; }
     }
 }

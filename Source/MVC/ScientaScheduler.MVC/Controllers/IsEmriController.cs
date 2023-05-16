@@ -12,7 +12,7 @@ namespace ScientaScheduler.MVC.Controllers
         private readonly ApplicationDbContext dbContext;
         private readonly IMapper mapper;
 
-        public IsEmriController(ApplicationDbContext dbContext,IMapper mapper)
+        public IsEmriController(ApplicationDbContext dbContext, IMapper mapper)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
@@ -23,9 +23,16 @@ namespace ScientaScheduler.MVC.Controllers
         {
             List<UYIsEmri> isEmriList = new();
             List<UYIsEmriDto> isEmriDtoList = new();
-            isEmriList = await dbContext.UYIsEmri.Take(10).ToListAsync();
+
+            isEmriList = await dbContext.UYIsEmri
+                .Where(x=> x.IsEmriDurumId != 7 && x.IsEmriDurumId != 8)
+                //.Take(50).OrderBy(o => o.BaslangicTarihi)
+                .ToListAsync();
+
             isEmriDtoList = mapper.Map<List<UYIsEmri>, List<UYIsEmriDto>>(isEmriList);
+
             ViewBag.IsEmri = isEmriDtoList;
+
             return View();
         }
     }

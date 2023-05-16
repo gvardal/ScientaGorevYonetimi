@@ -10,6 +10,7 @@ namespace ScientaScheduler.MVC.Library.Profiles
         {
             CreateMap<UYIsEmri, UYIsEmriDto>()
                 .ForMember(d => d.IsEmriKodu, s => s.MapFrom(src => src.IsEmriKodu!.ToString()));
+            CreateMap<P_UYIsEmriDurumu, UYIsEmriDurumuDto>();
         }
     }
 }

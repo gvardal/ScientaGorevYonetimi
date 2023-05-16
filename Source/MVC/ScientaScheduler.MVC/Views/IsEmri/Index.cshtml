@@ -3,11 +3,18 @@
 *@
 
 @{
+
 }
 
-
-<div>@ViewBag.IsEmri.Count</div>
-
-<ejs-grid id="Grid" dataSource="@ViewBag.IsEmri">
-
+<ejs-grid id="Grid" dataSource="@ViewBag.IsEmri" allowPaging>
+    <e-grid-loadingIndicator indicatorType="Spinner"/>
+    <e-grid-pagesettings pageCount="10"></e-grid-pagesettings>
+    <e-grid-columns>
+        <e-grid-column field="IsEmriKodu" headerText="İş Emri Kodu" textAlign="Center"></e-grid-column>
+        <e-grid-column field="" headerText="İş Emri Adı" textAlign="Center"></e-grid-column>
+        <e-grid-column field="" headerText="Durumu" textAlign="Center"></e-grid-column>
+        <e-grid-column field="UretimMiktari" headerText="Üretim Miktarı" textAlign="Center"></e-grid-column>
+        <e-grid-column field="BaslangicTarihi" headerText="Başlangıç Tarihi" format="dd.MM.yyyy" textAlign="Center"></e-grid-column>
+        <e-grid-column field="BitisTarihi" headerText="Bitiş Tarihi" format="dd.MM.yyyy" textAlign="Center"></e-grid-column>
+    </e-grid-columns>
 </ejs-grid>
